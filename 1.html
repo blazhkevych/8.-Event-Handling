@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+	<style>
+		ul {
+			list-style-type: none;
+		}
+
+		li {
+			font-weight: normal;
+		}
+
+		li:hover {
+			font-weight: bold;
+		}
+
+		.circle {
+			list-style-type: circle;
+		}
+
+		.square {
+			list-style-type: square;
+		}
+
+		.disc {
+			list-style-type: disc;
+		}
+	</style>
+</head>
+
+<body>
+	<ul>
+		<li class="disc">This PC
+			<ul>
+				<li class="circle">Local Disk (C:)
+					<ul>
+						<li class="square">Program Files</li>
+						<li class="square">Users</li>
+						<li class="square">Windows</li>
+					</ul>
+				</li>
+				<li class="circle">Local Disk (D:)
+					<ul>
+						<li class="square">New Folder 1</li>
+						<li class="square">New Folder 2</li>
+						<li class="square">New Folder 3</li>
+					</ul>
+				</li>
+				<li class="circle">Local Disk (E:)</li>
+			</ul>
+		</li>
+	</ul>
+	<script>
+		let ul = document.querySelector('ul');
+		ul.addEventListener('click', function (event) {
+			let target = event.target;
+			if (target.tagName != 'LI') return;
+			let childrenContainer = target.querySelector('ul');
+			if (!childrenContainer) return;
+			childrenContainer.hidden = !childrenContainer.hidden;
+		});
+	</script>
+</body>
+
+</html>
