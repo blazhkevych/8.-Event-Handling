@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+		.selected {
+			color: orange;
+		}
+	</style>
+</head>
+
+<body>
+	<ul id="book-list">
+		<li>Книга 1</li>
+		<li>Книга 2</li>
+		<li>Книга 3</li>
+		<li>Книга 4</li>
+		<li>Книга 5</li>
+	</ul>
+
+	<script>
+		let bookList = document.querySelector('#book-list');
+		let selectedBooks = [];
+		bookList.addEventListener('click', function (event) {
+			let target = event.target;
+			if (target.tagName != 'LI') return;
+			if (event.ctrlKey) {
+				toggleSelection(target);
+			} else if (event.shiftKey) {
+				selectRange(target);
+			} else {
+				clearSelection();
+				highlight(target);
+			}
+		});
+
+		function toggleSelection(book) {
+			let index = selectedBooks.indexOf(book);
+			if (index > -1) {
+				selectedBooks.splice(index, 1);
+				book.classList.remove('selected');
+			} else {
+				selectedBooks.push(book);
+				book.classList.add('selected');
+			}
+		}
+
+		function selectRange(book) {
+			let books = Array.from(bookList.children);
+			let start = books.indexOf(selectedBooks[0]);
+			let end = books.indexOf(book);
+			if (start > end) [start, end] = [end, start];
+			clearSelection();
+			for (let i = start; i <= end; i++) {
+				highlight(books[i]);
+			}
+		}
+
+		function clearSelection() {
+			for (let book of selectedBooks) {
+				book.classList.remove('selected');
+			}
+			selectedBooks = [];
+		}
+
+		function highlight(book) {
+			selectedBooks.push(book);
+			book.classList.add('selected');
+		}
+	</script>
+</body>
+
+</html>
