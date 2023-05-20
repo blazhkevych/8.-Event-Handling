@@ -3,23 +3,66 @@
 
 <head>
 	<style>
+		/* CSS styles for the resizable element */
 		#resizable {
 			width: 100px;
+			/* Initial width of the resizable element */
 			height: 100px;
+			/* Initial height of the resizable element */
 			border: 1px solid black;
-			overflow: hidden;
-			resize: both;
-			overflow: auto;
+			/* Adds a 1px black border to the resizable element */
 		}
 	</style>
 </head>
 
 <body>
 
+	<!-- The resizable element -->
 	<div id="resizable">
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero iste sunt id ipsum error reprehenderit molestiae
 			blanditiis magnam dicta harum nam eligendi est, eaque, minima itaque nihil deserunt repellendus ab!</p>
 	</div>
+
+	<script>
+		// Get the resizable element
+		var resizable = document.getElementById('resizable');
+		resizable.style.overflow = 'hidden'; // Set the overflow property to 'hidden' to prevent content from overflowing
+
+		// Add a mousedown event listener to the resizable element
+		resizable.addEventListener('mousedown', function (event) {
+			if (event.target === resizable) { // Only trigger the resize event when the mousedown occurs directly on the resizable element
+				event.preventDefault(); // Prevent default behavior of mousedown event
+
+				// Get the initial position and dimensions of the resizable element
+				var startX = event.clientX;
+				var startY = event.clientY;
+				var startWidth = parseInt(document.defaultView.getComputedStyle(resizable).width, 10);
+				var startHeight = parseInt(document.defaultView.getComputedStyle(resizable).height, 10);
+
+				// Function to handle the dragging of the resizable element
+				function doDrag(event) {
+					// Calculate the change in mouse position
+					var deltaX = event.clientX - startX;
+					var deltaY = event.clientY - startY;
+
+					// Adjust the width and height of the resizable element based on the mouse movement
+					resizable.style.width = startWidth + deltaX + 'px';
+					resizable.style.height = startHeight + deltaY + 'px';
+				}
+
+				// Function to stop the dragging when the mouse button is released
+				function stopDrag() {
+					document.removeEventListener('mousemove', doDrag); // Remove the mousemove event listener
+					document.removeEventListener('mouseup', stopDrag); // Remove the mouseup event listener
+				}
+
+				// Add the mousemove event listener to track the mouse movement during dragging
+				document.addEventListener('mousemove', doDrag);
+				// Add the mouseup event listener to stop the dragging when the mouse button is released
+				document.addEventListener('mouseup', stopDrag);
+			}
+		});
+	</script>
 
 </body>
 

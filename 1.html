@@ -5,61 +5,91 @@
 	<meta charset="UTF-8">
 	<title>1</title>
 	<style>
+		/* CSS styles for the unordered list */
 		ul {
 			list-style-type: none;
+			/* Removes the default bullet points */
 		}
 
+		/* CSS styles for the list items */
 		li {
 			font-weight: normal;
+			/* Sets the normal font weight */
 		}
 
+		/* CSS styles for the list items on hover */
 		li:hover {
 			font-weight: bold;
+			/* Sets the font weight to bold on hover */
 		}
 
+		/* CSS styles for the first level nested list items with circle bullet points */
 		.circle {
 			list-style-type: circle;
+			/* Sets the bullet points to circles */
 		}
 
+		/* CSS styles for the second level nested list items with square bullet points */
 		.square {
 			list-style-type: square;
+			/* Sets the bullet points to squares */
 		}
 
+		/* CSS styles for the third level nested list items with disc bullet points */
 		.disc {
 			list-style-type: disc;
+			/* Sets the bullet points to discs */
 		}
 	</style>
 </head>
 
 <body>
+	<!-- The unordered list -->
 	<ul>
+		<!-- First level list item with disc bullet point -->
 		<li class="disc">This PC
+			<!-- First level nested unordered list -->
 			<ul>
+				<!-- Second level list item with circle bullet point -->
 				<li class="circle">Local Disk (C:)
+					<!-- Second level nested unordered list -->
 					<ul>
+						<!-- Third level list items with square bullet points -->
 						<li class="square">Program Files</li>
 						<li class="square">Users</li>
 						<li class="square">Windows</li>
 					</ul>
 				</li>
+				<!-- Second level list item with circle bullet point -->
 				<li class="circle">Local Disk (D:)
+					<!-- Second level nested unordered list -->
 					<ul>
+						<!-- Third level list items with square bullet points -->
 						<li class="square">New Folder 1</li>
 						<li class="square">New Folder 2</li>
 						<li class="square">New Folder 3</li>
 					</ul>
 				</li>
+				<!-- Second level list item with circle bullet point -->
 				<li class="circle">Local Disk (E:)</li>
 			</ul>
 		</li>
 	</ul>
+	<!-- JavaScript code to toggle the visibility of nested lists -->
 	<script>
+		// Select the unordered list
 		let ul = document.querySelector('ul');
+		// Add a click event listener to the unordered list
 		ul.addEventListener('click', function (event) {
+			// Get the target element that triggered the event
 			let target = event.target;
+			// If the target element is not an <li> element, return
 			if (target.tagName != 'LI') return;
+			// Find the nested <ul> element within the clicked <li> element
 			let childrenContainer = target.querySelector('ul');
+			// If no nested <ul> element is found, return
 			if (!childrenContainer) return;
+			// Toggle the visibility of the nested <ul> element by hiding/showing it
 			childrenContainer.hidden = !childrenContainer.hidden;
 		});
 	</script>
